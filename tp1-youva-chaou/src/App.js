@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import TeachersPage from "./components/TeachersPage";
 
 function App() {
+  const teacherList = [
+    {
+      pictureURL: "",
+      firstName: "Jean",
+      lastName: "Richard",
+      hiredDate: "2022-02-23",
+      taughtClassroomsList: ["math", "educ", "whatever"]
+    },
+  ];
+  //const classroomList = [];
+  const [teacherListRef, setTeacherListRef] = useState(teacherList);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <TeachersPage teacherList={teacherListRef} addTeacherFunc={setTeacherListRef} />
     </div>
   );
 }

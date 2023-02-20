@@ -1,0 +1,25 @@
+.button {
+    padding: 2% 2%;
+    padding: auto;
+    background-color: #c0ded9;
+    color: #3b3a30;
+    font-size: larger;
+    border: solid 6px black;
+    border-radius: 15px;
+    size: 150%;
+}
+.input-field {
+
+}
+.text {
+    font-size: large;
+    color: #3b3a30;
+}
+.error {
+    font-size: larger;
+    color: red;
+}
+.succes {
+    font-size: larger;
+    color: green;
+}
