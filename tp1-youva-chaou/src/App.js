@@ -18,10 +18,10 @@ function App() {
   ];
   const classroomList = [
     {
-      title: "",
-      discipline: "",
-      session: "",
-      startingDate: "",
+      title: "Math",
+      discipline: "Bs",
+      session: "Session Hiver 2023",
+      startingDate: "12/02/2023",
       endingDate: "",
       studentList: [
         {
@@ -36,7 +36,25 @@ function App() {
         },
       ],
     },
-    {},
+    {
+      title: "Programmation",
+      discipline: "Informatique",
+      session: "Session Hiver 2022",
+      startingDate: "15/05/2021",
+      endingDate: "",
+      studentList: [
+        {
+          admissionNumber: 0,
+          firstName: "",
+          lastName: "",
+        },
+        {
+          admissionNumber: 0,
+          firstName: "",
+          lastName: "",
+        },
+      ],
+    },
   ];
   const [teacherListRef, setTeacherListRef] = useState(teacherList);
   const [classroomListRef, setClassroomList] = useState(classroomList);
@@ -70,8 +88,10 @@ function App() {
             />
           }
         />
-        <Route path="cours" element={<ClassroomPage 
+        <Route path="cours" element={
+        <ClassroomPage 
           classroomList={classroomListRef}
+          sessionConvertingFunction={determinateSessionByDate}
         />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
