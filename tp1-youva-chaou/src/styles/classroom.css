@@ -1,0 +1,29 @@
+.classroom-container {
+    padding: 5%;
+    margin: auto;
+    width: 15%;
+    background:#c0ded9;
+    border: 10px solid #3b3a30;
+    border-radius: 5%;
+    color: rgba(250, 250, 250, 0.8);
+    margin-bottom: 2rem;
+}
+.classroom-text {
+    color: #3b3a30;
+}
+.classroom-button {
+    padding: 2% 2%;
+    padding: auto;
+    background-color: #041c40;
+    color: #89877d;
+    font-size: larger;
+    border: solid 6px black;
+    border-radius: 15px;
+    size: 150%;
+}
+
+.classroom-button:hover {
+    background: #3ad2d0;   
+    transition: background .2s linear;
+    transition-delay: .1s;
+}

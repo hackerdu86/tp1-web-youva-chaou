@@ -1,15 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import "../styles/navbar.css"
 
 function UpperNavBar() {
     return (
         <nav className="navbar">
           <div className="navbar-left">
-            <a href="/menu-principal">Menu Principal</a>
+          <Link to="/menu-principal">Menu Principal</Link>
           </div>
           <div className="navbar-right">
-            <a href="/profs">Profs</a>
-            <a href="/cours">Cours</a>
+            <Link to="/profs">Profs</Link>
+            <Link to="/cours">Cours</Link>
           </div>
         </nav>
       );

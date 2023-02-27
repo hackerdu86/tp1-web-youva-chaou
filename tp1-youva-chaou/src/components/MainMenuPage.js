@@ -8,7 +8,14 @@ function MainMenuPage() {
             <div>
                 <h1>Youva Chaou - TP1</h1>
                 <h2>Description générale des fonctionnalitées:</h2>
-                <h3>d</h3>
+                <ul>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    
+                </ul>
             </div>    
         </div>
     )

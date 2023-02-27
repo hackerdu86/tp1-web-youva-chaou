@@ -8,6 +8,11 @@
     border-radius: 15px;
     size: 150%;
 }
+.button:hover {
+    background: #3ad2d0;   
+    transition: background .2s linear;
+    transition-delay: .1s;
+}
 .input-field {
 
 }

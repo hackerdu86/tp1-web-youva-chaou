@@ -59,6 +59,7 @@ function TeachersPage(props) {
             pictureURL={teacher["pictureURL"]}
             firstName={teacher["firstName"]}
             lastName={teacher["lastName"]}
+            hiredDate={teacher["hiredDate"]}
             taughtClassroomsList={teacher["taughtClassroomsList"]}
           />
         );
