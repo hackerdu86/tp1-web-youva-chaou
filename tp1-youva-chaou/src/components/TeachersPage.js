@@ -3,11 +3,6 @@ import Card from "./Card";
 import "../styles/forms.css";
 
 function TeachersPage(props) {
-    const pRef = React.createRef(),
-    firstNameInputRef = React.createRef(),
-    lastNameInputRef = React.createRef(),
-    dateInputRef = React.createRef(),
-    teacherPictureFileRef = React.createRef();
 
     function fromTeacherInfoToJson(pictureURL, firstName, lastName, hiredDate) {
         return {
@@ -49,6 +44,13 @@ function TeachersPage(props) {
     }
     console.log(firstName)
   }
+
+
+  const pRef = React.createRef(),
+  firstNameInputRef = React.createRef(),
+  lastNameInputRef = React.createRef(),
+  dateInputRef = React.createRef(),
+  teacherPictureFileRef = React.createRef();
 
   return (
     <div>

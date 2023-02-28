@@ -7,11 +7,31 @@ import UpperNavBar from "./components/UpperNavBar";
 import NoPage from "./components/NoPage";
 
 function App() {
+
+
+  function getAllTeacherNames(teacherList) {
+    return teacherList.map((teacherObj) => {
+      return teacherObj["firstName"] + " " + teacherObj["lastName"];
+    });
+  }
+
   const teacherList = [
     {
       pictureURL: "",
       firstName: "Jean",
       lastName: "Richard",
+      hiredDate: "23/02/2023",
+      taughtClassroomsList: ["math", "educ", "whatever"],
+    },{
+      pictureURL: "",
+      firstName: "Michel",
+      lastName: "Desormais",
+      hiredDate: "23/02/2023",
+      taughtClassroomsList: ["math", "educ", "whatever"],
+    },{
+      pictureURL: "",
+      firstName: "Ayoub",
+      lastName: "Kesri",
       hiredDate: "23/02/2023",
       taughtClassroomsList: ["math", "educ", "whatever"],
     },
@@ -23,6 +43,8 @@ function App() {
       session: "Session Hiver 2023",
       startingDate: "12/02/2023",
       endingDate: "",
+      maxStudents: 5,
+      teacherName: "",
       studentList: [
         {
           admissionNumber: 0,
@@ -42,6 +64,8 @@ function App() {
       session: "Session Hiver 2022",
       startingDate: "15/05/2021",
       endingDate: "",
+      maxStudents: 5,
+      teacherName: "",
       studentList: [
         {
           admissionNumber: 0,
@@ -58,21 +82,6 @@ function App() {
   ];
   const [teacherListRef, setTeacherListRef] = useState(teacherList);
   const [classroomListRef, setClassroomList] = useState(classroomList);
-
-  function determinateSessionByDate(startingDate) {
-    const autumn2021 = "22/08/2021", winter2022 = "23/01/2022",  autumn2022 = "22/08/2022", winter2023 = "23/01/2023";
-    let session = "Session ", parsedStaringDate = Date.parse(startingDate);
-    if (startingDate >= Date.parse(winter2023)) {
-        session += "Hiver 2023";
-    } else if (startingDate >= Date.parse(autumn2022)) {
-        session += "Automne 2022";
-    } else if (startingDate >= Date.parse(winter2022)) {
-        session += "Hiver 2022";
-    } else if (startingDate >= Date.parse(autumn2021)) {
-        session += "Automne 2021";
-    }
-    return session
-}
 
   return (
     <BrowserRouter>
@@ -91,7 +100,8 @@ function App() {
         <Route path="cours" element={
         <ClassroomPage 
           classroomList={classroomListRef}
-          sessionConvertingFunction={determinateSessionByDate}
+          addClassroomFunc={setClassroomList}
+          teacherNamesList={getAllTeacherNames(teacherListRef)}
         />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
