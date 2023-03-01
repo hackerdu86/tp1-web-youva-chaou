@@ -77,6 +77,9 @@ function ClassroomsPage(props) {
       );
     }
   }
+  function onClickHandlerClassroom(event) {
+    console.log(event.target);
+  }
 
   const selectRef = React.createRef(),
     titleInputRef = React.createRef(),
@@ -119,6 +122,7 @@ function ClassroomsPage(props) {
               title={classroom["title"]}
               discipline={classroom["discipline"]}
               session={classroom["session"]}
+              onClickHandler={onClickHandlerClassroom}
             />
           );
         })}

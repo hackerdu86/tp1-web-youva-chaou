@@ -3,12 +3,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainMenuPage from "./components/MainMenuPage";
 import TeachersPage from "./components/TeachersPage";
 import ClassroomPage from "./components/ClassroomsPage";
+import ClassroomDetailsPage from "./components/ClassroomDetailsPage";
 import UpperNavBar from "./components/UpperNavBar";
 import NoPage from "./components/NoPage";
 
 function App() {
-
-
   function getAllTeacherNames(teacherList) {
     return teacherList.map((teacherObj) => {
       return teacherObj["firstName"] + " " + teacherObj["lastName"];
@@ -22,13 +21,15 @@ function App() {
       lastName: "Richard",
       hiredDate: "23/02/2023",
       taughtClassroomsList: ["math", "educ", "whatever"],
-    },{
+    },
+    {
       pictureURL: "",
       firstName: "Michel",
       lastName: "Desormais",
       hiredDate: "23/02/2023",
       taughtClassroomsList: ["math", "educ", "whatever"],
-    },{
+    },
+    {
       pictureURL: "",
       firstName: "Ayoub",
       lastName: "Kesri",
@@ -82,6 +83,7 @@ function App() {
   ];
   const [teacherListRef, setTeacherListRef] = useState(teacherList);
   const [classroomListRef, setClassroomList] = useState(classroomList);
+  const [chosenClassroomRef, setChosenClassroomRef] = useState("");
 
   return (
     <BrowserRouter>
@@ -97,12 +99,21 @@ function App() {
             />
           }
         />
-        <Route path="cours" element={
-        <ClassroomPage 
-          classroomList={classroomListRef}
-          addClassroomFunc={setClassroomList}
-          teacherNamesList={getAllTeacherNames(teacherListRef)}
-        />} />
+        <Route
+          path="cours"
+          element={
+            <ClassroomPage
+              classroomList={classroomListRef}
+              addClassroomFunc={setClassroomList}
+              setChosenClassroomFunc={setChosenClassroomRef}
+              teacherNamesList={getAllTeacherNames(teacherListRef)}
+            />
+          }
+        />
+        <Route
+          path="cours/detail-cours"
+          element={<ClassroomDetailsPage title={chosenClassroomRef["title"]} />}
+        />
         <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>
