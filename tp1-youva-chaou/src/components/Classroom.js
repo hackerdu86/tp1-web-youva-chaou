@@ -15,7 +15,7 @@ function Classroom(classroomInformations) {
         Donné à la {classroomInformations.session}
       </h3>
       <Link to="detail-cours">
-        <button className="classroom-button" onClick={classroomInformations.onClickHandler}>Plus d'informations</button>
+        <button className="classroom-button" onClick={classroomInformations.onClickHandler} ref={classroomInformations.buttonRef}>Plus d'informations</button>
       </Link>
     </div>
   );

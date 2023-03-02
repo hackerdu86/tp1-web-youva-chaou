@@ -78,7 +78,12 @@ function ClassroomsPage(props) {
     }
   }
   function onClickHandlerClassroom(event) {
-    console.log(event.target);
+    let i = -2;
+    while ((i += 2) < buttonsBindedWithClassroomDictionary.length) {
+      if (buttonsBindedWithClassroomDictionary[i].current == event.target){
+        props.setChosenClassroomFunc(buttonsBindedWithClassroomDictionary[i + 1]);
+      }
+    }
   }
 
   const selectRef = React.createRef(),
@@ -89,6 +94,9 @@ function ClassroomsPage(props) {
     endingDateInputRef = React.createRef(),
     teacherNameInputRef = React.createRef(),
     pRef = React.createRef();
+
+    let buttonsBindedWithClassroomDictionary = [];
+
 
   let classroomsListBySession = classroomListBySession(
     "Session Hiver 2023",
@@ -117,17 +125,20 @@ function ClassroomsPage(props) {
 
       <div>
         {classroomBySessionListRef.map((classroom) => {
+          const classroomButtonRef = React.createRef();
+          buttonsBindedWithClassroomDictionary.push(classroomButtonRef)
+          buttonsBindedWithClassroomDictionary.push(classroom)
           return (
             <Classroom
               title={classroom["title"]}
               discipline={classroom["discipline"]}
               session={classroom["session"]}
               onClickHandler={onClickHandlerClassroom}
+              buttonRef={classroomButtonRef}
             />
           );
         })}
       </div>
-
       <form>
         <h2>Formulaire d'ajout de cours</h2>
         <label htmlFor="title" className="text">
