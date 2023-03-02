@@ -1,4 +1,5 @@
-.navbar {
+/* NavBar pour pc */
+.navbar-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -9,14 +10,75 @@
     padding: 0 20px;
   }
   
-  .navbar a {
+  .navbar-top a {
     color: #fff;
     text-decoration: none;
     padding: 10px;
     border-radius: 5px;
   }
   
-  .navbar a:hover {
+  .navbar-top a:hover {
     background-color: #fff;
     color: #333;
+  }
+
+  /* NavBar d'appareil mobile */
+  .nav-bar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100vh;
+    background-color: #333;
+    transition: left 0.3s ease-out;
+    z-index: 9999;
+  }
+  
+  .nav-bar.open {
+    left: 0;
+  }
+  
+  .menu-button {
+    
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    z-index: 10000;
+    padding: 2% 2%;
+    padding: auto;
+    background-color: #c0ded9;
+    color: #3b3a30;
+    font-size: larger;
+    border: solid 6px black;
+    border-radius: 15px;
+    size: 100%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+  
+  .nav-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    text-align: left;
+    color: white;
+    background-color: #333;
+    border: none;
+    border-bottom: 1px solid white;
+    cursor: pointer;
+  }
+  
+  .nav-button:hover {
+    background-color: white;
+    color: #333;
+  }
+  
+  .top-button {
+    border-top: 1px solid white;
+  }
+  
+  .nav-buttons-bottom {
+    margin-top: auto;
   }
