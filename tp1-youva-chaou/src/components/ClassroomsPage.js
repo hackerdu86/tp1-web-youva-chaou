@@ -9,6 +9,7 @@ function ClassroomsPage(props) {
     discipline,
     startingDate,
     endingDate,
+    maxStudents,
     teacherName
   ) {
     return {
@@ -17,6 +18,7 @@ function ClassroomsPage(props) {
       session: "Session Hiver 2023",
       startingDate: startingDate,
       endingDate: endingDate,
+      maxStudents: maxStudents,
       teacherName: teacherName,
       studentList: [],
     };
@@ -29,6 +31,28 @@ function ClassroomsPage(props) {
       }
     });
     return classroomListBySession;
+  }
+  function getAllTeacherNames(teacherList) {
+    return teacherList.map((teacherObj) => {
+      return teacherObj["firstName"] + " " + teacherObj["lastName"];
+    });
+  }
+  function getTeacherListAfterAddingClassroomToTeacher(
+    teacherList,
+    teacherName,
+    titleOfClassroom
+  ) {
+    let copyList = [...teacherList];
+    copyList.forEach((teacher) => {
+      let teacherFullName = teacher["firstName"] + " " + teacher["lastName"];
+      if (teacherFullName === teacherName) {
+        teacher["taughtClassroomsList"] = [
+          ...teacher["taughtClassroomsList"],
+          titleOfClassroom,
+        ];
+      }
+    });
+    return copyList;
   }
   //Events
   function handleOnChangeSelect() {
@@ -65,6 +89,7 @@ function ClassroomsPage(props) {
         discipline,
         startingDate,
         endingDate,
+        numberOfStudents,
         teacherName
       );
       props.addClassroomFunc([...props.classroomList, classroomToAdd]);
@@ -75,13 +100,22 @@ function ClassroomsPage(props) {
           classroomToAdd,
         ])
       );
+      props.setTeacherListFunc(
+        getTeacherListAfterAddingClassroomToTeacher(
+          props.teacherList,
+          classroomToAdd["teacherName"],
+          classroomToAdd["title"]
+        )
+      );
     }
   }
   function onClickHandlerClassroom(event) {
     let i = -2;
     while ((i += 2) < buttonsBindedWithClassroomDictionary.length) {
-      if (buttonsBindedWithClassroomDictionary[i].current == event.target){
-        props.setChosenClassroomFunc(buttonsBindedWithClassroomDictionary[i + 1]);
+      if (buttonsBindedWithClassroomDictionary[i].current === event.target) {
+        props.setChosenClassroomFunc(
+          buttonsBindedWithClassroomDictionary[i + 1]
+        );
       }
     }
   }
@@ -95,8 +129,7 @@ function ClassroomsPage(props) {
     teacherNameInputRef = React.createRef(),
     pRef = React.createRef();
 
-    let buttonsBindedWithClassroomDictionary = [];
-
+  let buttonsBindedWithClassroomDictionary = [];
 
   let classroomsListBySession = classroomListBySession(
     "Session Hiver 2023",
@@ -126,14 +159,15 @@ function ClassroomsPage(props) {
       <div>
         {classroomBySessionListRef.map((classroom) => {
           const classroomButtonRef = React.createRef();
-          buttonsBindedWithClassroomDictionary.push(classroomButtonRef)
-          buttonsBindedWithClassroomDictionary.push(classroom)
+          buttonsBindedWithClassroomDictionary.push(classroomButtonRef);
+          buttonsBindedWithClassroomDictionary.push(classroom);
           return (
             <Classroom
               title={classroom["title"]}
               discipline={classroom["discipline"]}
               session={classroom["session"]}
               onClickHandler={onClickHandlerClassroom}
+              teacherName={classroom["teacherName"]}
               buttonRef={classroomButtonRef}
             />
           );
@@ -197,7 +231,7 @@ function ClassroomsPage(props) {
           name="endingDate"
           min="2023-01-02"
           max="2023-06-06"
-          value="2023-06-06"
+          
           ref={endingDateInputRef}
         ></input>
         <br></br>
@@ -205,7 +239,7 @@ function ClassroomsPage(props) {
           Choisir un professeur:{" "}
         </label>
         <select name="teacherNames" id="teacherNames" ref={teacherNameInputRef}>
-          {props.teacherNamesList.map((fullName) => {
+          {getAllTeacherNames(props.teacherList).map((fullName) => {
             return <option>{fullName}</option>;
           })}
         </select>

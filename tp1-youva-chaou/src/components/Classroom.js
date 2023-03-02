@@ -14,6 +14,9 @@ function Classroom(classroomInformations) {
       <h3 className="classroom-text">
         Donné à la {classroomInformations.session}
       </h3>
+      <h3 className="classroom-text">
+        Professeur: {classroomInformations.teacherName}
+      </h3>
       <Link to="detail-cours">
         <button className="classroom-button" onClick={classroomInformations.onClickHandler} ref={classroomInformations.buttonRef}>Plus d'informations</button>
       </Link>

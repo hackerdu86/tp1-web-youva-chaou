@@ -42,7 +42,6 @@ function TeachersPage(props) {
             );
         }
     }
-    console.log(firstName)
   }
 
 
