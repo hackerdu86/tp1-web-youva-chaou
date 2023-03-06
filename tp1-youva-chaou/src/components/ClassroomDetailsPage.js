@@ -55,7 +55,9 @@ function ClassroomDetailsPage(classroomInformations) {
           ];
           classroomInformations.setChosenClassroomFunc(classroomToUpdate);
           let newClassroomList = [...classroomInformations.classroomList];
-          newClassroomList[newClassroomList.indexOf(classroomInformations.chosenClassroom)] = classroomToUpdate;
+          newClassroomList[
+            newClassroomList.indexOf(classroomInformations.chosenClassroom)
+          ] = classroomToUpdate;
           classroomInformations.setClassroomListFunc(newClassroomList);
           pRef.current.className = "succes";
           pRef.current.innerHTML = "L'étudiant a été ajouté avec succès !";

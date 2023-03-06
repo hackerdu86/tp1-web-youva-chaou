@@ -1,55 +1,71 @@
-import React from 'react';
+import React from "react";
 import Card from "./Card";
 import "../styles/forms.css";
 
 function TeachersPage(props) {
+  function fromTeacherInfoToJson(pictureURL, firstName, lastName, hiredDate) {
+    return {
+      pictureURL: pictureURL,
+      firstName: firstName,
+      lastName: lastName,
+      hiredDate: hiredDate,
+      taughtClassroomsList: [],
+    };
+  }
+  function fromFileToPromiseURL(file) {
+    return new Promise((resolve) => {
+      const objectURL = URL.createObjectURL(file);
+      resolve(objectURL);
+    });
+  }
+  function handleClickButton() {
+    let errorMessage =
+      "Tous les champs doivent être remplis pour ajouter un professeur!";
+    let firstName = firstNameInputRef.current.value,
+      lastName = lastNameInputRef.current.value;
+    pRef.current.className = "error";
 
-    function fromTeacherInfoToJson(pictureURL, firstName, lastName, hiredDate) {
-        return {
-            pictureURL: pictureURL,
-            firstName: firstName,
-            lastName: lastName,
-            hiredDate: hiredDate,
-            taughtClassroomsList: []
-        };
-    }
-    function fromFileToPromiseURL(file) {
-        return new Promise((resolve) => {
-            const objectURL = URL.createObjectURL(file);
-            resolve(objectURL);
-        });   
-    }
-    function handleClickButton() {
-        let errorMessage = "Tous les champs doivent être remplis pour ajouter un professeur!";
-        let firstName = firstNameInputRef.current.value,
-        lastName = lastNameInputRef.current.value;
-        pRef.current.className = "error";
-
-        if (firstName === "" || lastName === "" || teacherPictureFileRef.current.files.length === 0) {
-            pRef.current.innerHTML = errorMessage;
-        } else {
-            let selectedFileNameExtension = teacherPictureFileRef.current.files[0].name.split(".")[1];
-            if (selectedFileNameExtension !== "png" && selectedFileNameExtension !== "jpg") {
-                console.log(selectedFileNameExtension);
-                pRef.current.innerHTML = "Le fichier choisi ne peut être qu'une image!";
-            } else {
-                fromFileToPromiseURL(teacherPictureFileRef.current.files[0]).then((response) => {
-                    console.log(response);
-                    pRef.current.className = "succes";
-                    pRef.current.innerHTML = "Le professeur a été ajouté avec succès";
-                    props.addTeacherFunc([...props.teacherList, fromTeacherInfoToJson(response, firstName, lastName, dateInputRef.current.value)]);
-                }      
-            );
-        }
+    if (
+      firstName === "" ||
+      lastName === "" ||
+      teacherPictureFileRef.current.files.length === 0
+    ) {
+      pRef.current.innerHTML = errorMessage;
+    } else {
+      let selectedFileNameExtension =
+        teacherPictureFileRef.current.files[0].name.split(".")[1];
+      if (
+        selectedFileNameExtension !== "png" &&
+        selectedFileNameExtension !== "jpg"
+      ) {
+        console.log(selectedFileNameExtension);
+        pRef.current.innerHTML = "Le fichier choisi ne peut être qu'une image!";
+      } else {
+        fromFileToPromiseURL(teacherPictureFileRef.current.files[0]).then(
+          (response) => {
+            console.log(response);
+            pRef.current.className = "succes";
+            pRef.current.innerHTML = "Le professeur a été ajouté avec succès";
+            props.addTeacherFunc([
+              ...props.teacherList,
+              fromTeacherInfoToJson(
+                response,
+                firstName,
+                lastName,
+                dateInputRef.current.value
+              ),
+            ]);
+          }
+        );
+      }
     }
   }
 
-
   const pRef = React.createRef(),
-  firstNameInputRef = React.createRef(),
-  lastNameInputRef = React.createRef(),
-  dateInputRef = React.createRef(),
-  teacherPictureFileRef = React.createRef();
+    firstNameInputRef = React.createRef(),
+    lastNameInputRef = React.createRef(),
+    dateInputRef = React.createRef(),
+    teacherPictureFileRef = React.createRef();
 
   return (
     <div>
@@ -70,7 +86,13 @@ function TeachersPage(props) {
         <label htmlFor="fname" className="text">
           Nom de Famille:{" "}
         </label>
-        <input type="text" id="fname" name="fname" ref={firstNameInputRef} readOnly={false}/>
+        <input
+          type="text"
+          id="fname"
+          name="fname"
+          ref={firstNameInputRef}
+          readOnly={false}
+        />
         <br></br>
         <label htmlFor="lname" className="text">
           Prénom:{" "}
@@ -89,9 +111,14 @@ function TeachersPage(props) {
         ></input>
         <br></br>
         <label htmlFor="teacherPictureFile" className="text">
-            Choisir une photo:{" "}
+          Choisir une photo:{" "}
         </label>
-        <input type="file" id="teacherPictureFile" name="teacherPictureFile" ref={teacherPictureFileRef}/>
+        <input
+          type="file"
+          id="teacherPictureFile"
+          name="teacherPictureFile"
+          ref={teacherPictureFileRef}
+        />
         <br></br>
         <button type="button" className="button" onClick={handleClickButton}>
           Ajouter un professeur

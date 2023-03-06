@@ -28,7 +28,7 @@ function UpperNavBar() {
   return !isDeviceMobile ? (
     <nav className="navbar-top">
       <div className="lol">
-        <Link to="/menu-principal">Menu Principal</Link>
+        <Link to="/">Menu Principal</Link>
       </div>
       <div className="navbar-right">
         <Link to="/profs">Profs</Link>
@@ -37,7 +37,7 @@ function UpperNavBar() {
     </nav>
   ) : (
     <>
-      <Link to="/menu-principal">
+      <Link to="/">
         <button className="menu-button" onClick={handleMenuClick}>
           Menu Principal
         </button>

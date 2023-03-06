@@ -84,7 +84,7 @@ function App() {
     <BrowserRouter>
       <UpperNavBar />
       <Routes>
-        <Route path="menu-principal" element={<MainMenuPage />} />
+        <Route path="/" element={<MainMenuPage />} />
         <Route
           path="profs"
           element={
@@ -124,7 +124,7 @@ function App() {
               setChosenClassroomFunc={setChosenClassroomRef}
             />
           }
-        />
+        />  
         <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>

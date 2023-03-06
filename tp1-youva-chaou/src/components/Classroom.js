@@ -18,7 +18,13 @@ function Classroom(classroomInformations) {
         Professeur: {classroomInformations.teacherName}
       </h3>
       <Link to="detail-cours">
-        <button className="classroom-button" onClick={classroomInformations.onClickHandler} ref={classroomInformations.buttonRef}>Plus d'informations</button>
+        <button
+          className="classroom-button"
+          onClick={classroomInformations.onClickHandler}
+          ref={classroomInformations.buttonRef}
+        >
+          Plus d'informations
+        </button>
       </Link>
     </div>
   );

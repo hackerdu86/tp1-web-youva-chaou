@@ -231,7 +231,6 @@ function ClassroomsPage(props) {
           name="endingDate"
           min="2023-01-02"
           max="2023-06-06"
-          
           ref={endingDateInputRef}
         ></input>
         <br></br>
