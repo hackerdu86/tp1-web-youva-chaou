@@ -19,7 +19,7 @@ function MainMenuPage() {
           <li>Lier un cours à un nouveau professeur</li>
           <li>Ajouter des étudiants dans un cours</li>
           <li>Filtrer les cours par session</li>
-          <li>Afficher une page détaillé d'un cours en particulier</li>
+          <li>Afficher une page détaillée d'un cours en particulier</li>
         </ul>
       </div>
     </div>
