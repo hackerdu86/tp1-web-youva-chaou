@@ -23,6 +23,15 @@ function ClassroomsPage(props) {
       studentList: [],
     };
   }
+  function createNewTeacher(firstName, lastName, taughtClassroomsList) {
+    return {
+      pictureURL: "",
+      firstName: firstName,
+      lastName: lastName,
+      hiredDate: "",
+      taughtClassroomsList: taughtClassroomsList,
+    };
+  }
   function classroomListBySession(session, classroomList) {
     let classroomListBySession = [];
     classroomList.forEach((classroom) => {
@@ -54,6 +63,19 @@ function ClassroomsPage(props) {
     });
     return copyList;
   }
+  function getTeacherListAfterAddingNewTeacher(
+    teacherList,
+    teacherName,
+    titleOfClassroom
+  ) {
+    let copyList = [...teacherList];
+    copyList.push(
+      createNewTeacher(teacherName.split(" ")[0], teacherName.split(" ")[1], [
+        titleOfClassroom,
+      ])
+    );
+    return copyList;
+  }
   //Events
   function handleOnChangeSelect() {
     let session = selectRef.current.value;
@@ -65,12 +87,14 @@ function ClassroomsPage(props) {
     console.log("Clicked");
     let title = titleInputRef.current.value,
       discipline = disciplineInputRef.current.value,
-      numberOfStudents = parseInt(maxStudentsInputRef.current.value);
+      numberOfStudents = parseInt(maxStudentsInputRef.current.value),
+      choseNonExistingTeacher = choseExistingTeacherInputRef.current.checked;
     pRef.current.className = "error";
     if (
       title === "" ||
       discipline === "" ||
-      maxStudentsInputRef.current.value === ""
+      maxStudentsInputRef.current.value === "" ||
+      (choseNonExistingTeacher && newTeacherNameInputRef.current.value === "")
     ) {
       pRef.current.innerHTML =
         "Tous les champs doivent être remplis afin de pouvoir ajouter un cours !";
@@ -84,6 +108,9 @@ function ClassroomsPage(props) {
       let startingDate = startingDateInputRef.current.value,
         endingDate = endingDateInputRef.current.value,
         teacherName = teacherNameInputRef.current.value;
+      if (choseNonExistingTeacher) {
+        teacherName = newTeacherNameInputRef.current.value;
+      }
       const classroomToAdd = fromClassroomInfoToJson(
         title,
         discipline,
@@ -100,13 +127,23 @@ function ClassroomsPage(props) {
           classroomToAdd,
         ])
       );
-      props.setTeacherListFunc(
-        getTeacherListAfterAddingClassroomToTeacher(
-          props.teacherList,
-          classroomToAdd["teacherName"],
-          classroomToAdd["title"]
-        )
-      );
+      if (choseNonExistingTeacher) {
+        props.setTeacherListFunc(
+          getTeacherListAfterAddingNewTeacher(
+            props.teacherList,
+            classroomToAdd["teacherName"],
+            classroomToAdd["title"]
+          )
+        );
+      } else {
+        props.setTeacherListFunc(
+          getTeacherListAfterAddingClassroomToTeacher(
+            props.teacherList,
+            classroomToAdd["teacherName"],
+            classroomToAdd["title"]
+          )
+        );
+      }
     }
   }
   function onClickHandlerClassroom(event) {
@@ -119,6 +156,15 @@ function ClassroomsPage(props) {
       }
     }
   }
+  function onChangeHandler(event) {
+    if (event.target.checked) {
+      newTeacherNameInputRef.current.readOnly = false;
+      teacherNameInputRef.current.disabled = true;
+    } else {
+      newTeacherNameInputRef.current.readOnly = true;
+      teacherNameInputRef.current.disabled = false;
+    }
+  }
 
   const selectRef = React.createRef(),
     titleInputRef = React.createRef(),
@@ -127,6 +173,8 @@ function ClassroomsPage(props) {
     startingDateInputRef = React.createRef(),
     endingDateInputRef = React.createRef(),
     teacherNameInputRef = React.createRef(),
+    newTeacherNameInputRef = React.createRef(),
+    choseExistingTeacherInputRef = React.createRef(),
     pRef = React.createRef();
 
   let buttonsBindedWithClassroomDictionary = [];
@@ -218,7 +266,6 @@ function ClassroomsPage(props) {
           name="startingDate"
           min="2023-01-01"
           max="2023-06-05"
-          value="2023-01-01"
           ref={startingDateInputRef}
         ></input>
         <br></br>
@@ -234,6 +281,18 @@ function ClassroomsPage(props) {
           ref={endingDateInputRef}
         ></input>
         <br></br>
+        <input
+          type="checkbox"
+          id="existingTeacher"
+          name="teacherAddingMode"
+          value=""
+          onChange={onChangeHandler}
+          ref={choseExistingTeacherInputRef}
+        ></input>
+        <label htmlFor="existingTeacher">
+          Choisir un professeur non-existant
+        </label>
+        <br></br>
         <label htmlFor="cars" className="text">
           Choisir un professeur:{" "}
         </label>
@@ -242,6 +301,17 @@ function ClassroomsPage(props) {
             return <option>{fullName}</option>;
           })}
         </select>
+        <br></br>
+        <label htmlFor="teacherName" className="text">
+          Nom complet du nouveau professeur {"(nom + prenom) "}
+        </label>
+        <input
+          type="text"
+          id="teacherName"
+          name="teacherName"
+          ref={newTeacherNameInputRef}
+          readOnly={true}
+        />
         <br></br>
         <button type="button" className="button" onClick={handleClickButton}>
           Ajouter un cours
